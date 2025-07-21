@@ -1,0 +1,6 @@
+services:
+  - type: web
+    name: jobapplieremailsender
+    env: python
+    buildCommand: ""
+    startCommand: gunicorn email_api:app

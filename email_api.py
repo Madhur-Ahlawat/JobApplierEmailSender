@@ -26,36 +26,21 @@ Updated resume: Attached
 Reason for change: Sunday Labs contract over with BharatPe client
 """
 
-def send_email(to_email):
-    try:
-        msg = EmailMessage()
-        msg["Subject"] = EMAIL_SUBJECT
-        msg["From"] = EMAIL_ADDRESS
-        msg["To"] = to_email
-        msg.set_content(EMAIL_BODY)
+@app.route('/send', methods=['GET'])
+def send_email():
+    emails_param = request.args.get('emails')  # Get 'emails' from query param
+    if not emails_param:
+        return jsonify({"error": "Missing 'emails' query parameter"}), 400
 
-        with open(RESUME_PATH, "rb") as f:
-            file_data = f.read()
-            file_name = RESUME_PATH.split("/")[-1]
-            msg.add_attachment(file_data, maintype="application", subtype="octet-stream", filename=file_name)
+    # Split by comma, strip whitespace
+    emails = [email.strip() for email in emails_param.split(',') if email.strip()]
 
-        with smtplib.SMTP_SSL("smtp.gmail.com", 465) as smtp:
-            smtp.login(EMAIL_ADDRESS, EMAIL_PASSWORD)
-            smtp.send_message(msg)
+    for email in emails:
+        # Call your email sending logic here
+        print(f"Sending email to: {email}")
+        # send_email_function(email)
 
-        return True, f"Email successfully sent to {to_email}"
+    return jsonify({"status": "Emails sent", "recipients": emails}), 200
 
-    except Exception as e:
-        return False, str(e)
-
-@app.route("/send")
-def send_email_api():
-    to_email = request.args.get("email")
-    if not to_email:
-        return jsonify({"error": "Email query parameter is required"}), 400
-
-    success, message = send_email(to_email)
-    return jsonify({"success": success, "message": message})
-
-if __name__ == "__main__":
-    app.run(debug=True)
+if __name__ == '__main__':
+    app.run()

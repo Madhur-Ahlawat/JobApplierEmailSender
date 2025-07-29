@@ -13,15 +13,15 @@ EMAIL_SUBJECT = "Android Developer with 5 yr exp (exBharatPe, PVR Cinemas, OICL)
 EMAIL_BODY = """\
 Total experience: 5.7 years
 Relevant experience: Same
-Primary skills(top3): Java/Kotlin, MVVM, Jetpack Compose, Dagger/Hilt
+Primary skills: Java/Kotlin, MVVM, Coroutines, Flows, Jetpack Compose, Dagger/Hilt
 Notice period: Immediate Joiner
-LWD (If applicable): 18th July
+LWD (If applicable): 23rd July
 Current location: Gurugram
 Preferred location: Any
-Are you open to work from Office 5 days a week: (Yes/No) Yes
+Are you open to work from Office 5 days a week: Yes
 Current CTC: 13 LPA
-Offer in hand: 1st round at Samsung is clear, waiting for panel to get available
-Expected CTC: As per company norms
+Offer in hand: No, Just started looking for job.
+Expected CTC: 15 LPA
 Current company: BharatPe (payroll Sunday Labs)
 Updated resume: Attached
 Reason for change: Sunday Labs contract over with BharatPe client

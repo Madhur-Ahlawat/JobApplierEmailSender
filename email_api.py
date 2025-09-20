@@ -12,7 +12,7 @@ app = Flask(__name__)
 # export EMAIL_PASSWORD='your_app_password'
 
 EMAIL_ADDRESS = "madhur.ahlawat17@gmail.com"
-EMAIL_PASSWORD = "qnwu rreg yoqh fzme"  # Use app password
+EMAIL_PASSWORD = "ghat dpaz iyps nztm"  # Use app password
 
 RESUME_PATH = "Madhur_Ahlawat.pdf"
 

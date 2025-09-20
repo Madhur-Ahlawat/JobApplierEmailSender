@@ -38,7 +38,9 @@ Reason for change: Sunday Labs contract over with BharatPe client
 # --- Investor Pitch Email Details ---
 EMAIL_SUBJECT_INVESTOR = "Seeking Angel Investment to become leading FinTech software solution provider"
 EMAIL_BODY_INVESTOR = """\
-I am an experienced Software Engineer (Android) with 6 years of professional tech-savvy experience and over 15 years of expertise working across Windows, Linux, macOS, and a wide range of devices. Technology has been my passion throughout, and now I am building a FinTech-focused software company.
+Hello Investor,
+
+I am Madhur Ahlawat, Being am experienced Software Engineer (Android) with 6 years of professional tech-savvy experience and over 15 years of expertise working across Windows, Linux, macOS, and a wide range of devices, Technology has been my passion throughout and now I am building a FinTech-focused software company.
 
 I have worked with leading clients such as Physics Wallah, PVR Cinemas(Conduent) and FinTech giants like PhonePe and Stashfin.
 
@@ -257,6 +259,8 @@ def send_email(recipient, subject, body, attachment_path=None):
                     subtype='pdf',
                     filename=os.path.basename(attachment_path)
                 )
+        else:
+            print(f"❌ Failed to attach file!")
 
         with smtplib.SMTP_SSL('smtp.gmail.com', 465) as smtp:
             smtp.login(EMAIL_ADDRESS, EMAIL_PASSWORD)

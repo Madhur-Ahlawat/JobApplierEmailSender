@@ -12,7 +12,7 @@ app = Flask(__name__)
 # export EMAIL_PASSWORD='your_app_password'
 
 EMAIL_ADDRESS = "madhur.ahlawat17@gmail.com"
-EMAIL_PASSWORD = "ghat dpaz iyps nztm"  # Use app password
+EMAIL_PASSWORD = "ghat dpaz iyps nztm"
 
 RESUME_PATH = "Madhur_Ahlawat.pdf"
 
@@ -167,8 +167,6 @@ Banking Integrations
 
 Search Services
 
-Data Streaming
-
 Dashboard Services
 
 Security Scanning
@@ -243,12 +241,7 @@ Linkedin: https://www.linkedin.com/in/madhur-ahlawat/
 Phone & WhatsApp: +91-9958417372
 """
 
-# --- Reusable Function to Send Emails ---
 def send_email(recipient, subject, body, attachment_path=None):
-    """
-    A single function to handle all email sending logic.
-    Optional attachment_path parameter for flexibility.
-    """
     try:
         msg = EmailMessage()
         msg['From'] = EMAIL_ADDRESS
@@ -305,7 +298,6 @@ def send_job_application_emails():
 
 @app.route('/sendToInvestor', methods=['GET'])
 def send_investor_pitch_emails():
-    """Route to send investor pitch emails without a resume attachment."""
     emails_param = request.args.get('emails')
     if not emails_param:
         return jsonify({"error": "Missing 'emails' query parameter"}), 400

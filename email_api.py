@@ -269,6 +269,11 @@ def send_email(recipient, subject, body, attachment_path=None):
         return False
 
 # --- Flask Routes ---
+
+@app.route('/')
+def home():
+    return "Email sender service is up and running!"
+
 @app.route('/send', methods=['GET'])
 def send_job_application_emails():
     """Route to send job application emails with a resume attachment."""

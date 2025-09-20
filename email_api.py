@@ -233,7 +233,9 @@ Deployment Services
 
 Data Visualization
 
-I have developed the complete software and infrastructure required to serve a FinTech company including every layer of financial services, merchant solutions through mobile apps, web services and portals, POS devices, Internal business tools, AI-powered fraud prevention, and scalable infrastructure delivering seamless, secure, and innovative experiences for businesses and their customers and my vision is to become a leading FinTech software solution provider, empowering both startups and enterprises with innovative financial technology. To scale and progress towards becoming a FinTech software provider, I am seeking initial seed funding, I would be happy to connect for a call for a more detailed discussion.
+I have developed the complete software and infrastructure required to serve a FinTech company including every layer of financial services, merchant solutions through mobile apps, web services and portals, POS devices, Internal business tools, AI-powered fraud prevention, and scalable infrastructure delivering seamless, secure, and innovative experiences for businesses and their customers.
+
+My vision is to become a leading FinTech software solution provider, empowering both startups and enterprises with innovative financial technology. To scale and progress towards becoming a FinTech software provider, I am seeking initial seed funding, I would be happy to connect for a call for a more detailed discussion.
 
 Thanks
 Madhur Ahlawat

@@ -40,7 +40,7 @@ EMAIL_SUBJECT_INVESTOR = "Seeking Angel Investment to become leading FinTech sof
 EMAIL_BODY_INVESTOR = """\
 I am an experienced Software Engineer (Android) with 6 years of professional tech-savvy experience and over 15 years of expertise working across Windows, Linux, macOS, and a wide range of devices. Technology has been my passion throughout, and now I am building a FinTech-focused software company.
 
-I have worked with leading clients such as Physics Wallah, PVR Cinemas and FinTech giants like PhonePe, Stashfin.
+I have worked with leading clients such as Physics Wallah, PVR Cinemas(Conduent) and FinTech giants like PhonePe and Stashfin.
 
 My expertise covers the end-to-end FinTech ecosystem software, including:
 

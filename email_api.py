@@ -40,7 +40,7 @@ EMAIL_SUBJECT_INVESTOR = "Seeking Angel Investment to become leading FinTech sof
 EMAIL_BODY_INVESTOR = """\
 I am an experienced Software Engineer (Android) with 6 years of professional tech-savvy experience and over 15 years of expertise working across Windows, Linux, macOS, and a wide range of devices. Technology has been my passion throughout, and now I am building a FinTech-focused software company.
 
-I have worked with leading clients such as Physics Wallah, PVR Cinemas and FinTech giants (confidential, let me reveal It later).
+I have worked with leading clients such as Physics Wallah, PVR Cinemas and FinTech giants like PhonePe, Stashfin.
 
 My expertise covers the end-to-end FinTech ecosystem software, including:
 
@@ -233,13 +233,12 @@ Deployment Services
 
 Data Visualization
 
-I have developed the complete software and infrastructure required to serve a FinTech company including every layer of financial services, merchant solutions through mobile apps, web services and portals, POS devices, Internal business tools, AI-powered fraud prevention, and scalable infrastructure delivering seamless, secure, and innovative experiences for businesses and their customers.
-
-My vision is to become a leading FinTech software solution provider, empowering both startups and enterprises with innovative financial technology. To scale and progress towards becoming a FinTech software provider, I am seeking initial seed funding, I would be happy to connect for a call for a more detailed discussion.
+I have developed the complete software and infrastructure required to serve a FinTech company including every layer of financial services, merchant solutions through mobile apps, web services and portals, POS devices, Internal business tools, AI-powered fraud prevention, and scalable infrastructure delivering seamless, secure, and innovative experiences for businesses and their customers and my vision is to become a leading FinTech software solution provider, empowering both startups and enterprises with innovative financial technology. To scale and progress towards becoming a FinTech software provider, I am seeking initial seed funding, I would be happy to connect for a call for a more detailed discussion.
 
 Thanks
 Madhur Ahlawat
-+91-9958417372
+Linkedin: https://www.linkedin.com/in/madhur-ahlawat/
+Phone & WhatsApp: +91-9958417372
 """
 
 # --- Reusable Function to Send Emails ---

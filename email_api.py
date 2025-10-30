@@ -1,4 +1,8 @@
-from flask import Flask, request, jsonify
+import email
+import imaplib
+import re
+
+from flask import Flask, request, jsonify, Response
 import smtplib
 from email.message import EmailMessage
 import os
@@ -12,27 +16,30 @@ app = Flask(__name__)
 # export EMAIL_PASSWORD='your_app_password'
 
 EMAIL_ADDRESS = "madhur.ahlawat17@gmail.com"
-EMAIL_PASSWORD = "ghat dpaz iyps nztm"
-
-RESUME_PATH = "Madhur_Ahlawat.pdf"
+EMAIL_PASSWORD = "vymz jmda rbuj dyho"
+IMAP_SERVER = "imap.gmail.com"
+RESUME_PATH = "Madhur_Ahlawat.docx"
 
 # --- Job Application Email Details ---
-EMAIL_SUBJECT_JOB_APP = "Android Developer with 5 yr exp (exBharatPe, PVR Cinemas, OICL)"
+EMAIL_SUBJECT_JOB_APP = "Android Developer with 5 yr exp (exBharatPe, Physics Wallah)"
 EMAIL_BODY_JOB_APP = """\
-Total experience: 5.7 years
+Total experience: 5.9 years
 Relevant experience: Same
-Primary skills: Java/Kotlin, MVVM, Coroutines, Flows, Jetpack Compose, Dagger/Hilt
+Primary skills: Java/Kotlin, MVVM, Coroutines, Flows, Jetpack Compose, Dagger/Hilt, Android Security Analysis
 Notice period: Immediate Joiner
-LWD (If applicable): 23rd July
-Current location: Gurugram
+Current location: Delhi/NCR
 Preferred location: Any
 Are you open to work from Office 5 days a week: Yes
-Current CTC: 13 LPA
+Current CTC: 14 LPA
 Offer in hand: No, Just started looking for job.
-Expected CTC: 15 LPA
+Expected CTC: 16 LPA
 Current company: BharatPe (payroll Sunday Labs)
 Updated resume: Attached
-Reason for change: Sunday Labs contract over with BharatPe client
+Reason for change: Sunday Labs contract is getting over with BharatPe client.
+
+Thanks
+Madhur Ahlawat
+9958417372
 """
 
 # --- Investor Pitch Email Details ---
@@ -40,7 +47,7 @@ EMAIL_SUBJECT_INVESTOR = "Seeking Angel Investment to become leading FinTech sof
 EMAIL_BODY_INVESTOR = """\
 Hello Investor,
 
-I am Madhur Ahlawat, Being am experienced Software Engineer (Android) with 6 years of professional tech-savvy experience and over 15 years of expertise working across Windows, Linux, macOS, and a wide range of devices, Technology has been my passion throughout and now I am building a FinTech-focused software company.
+I am Madhur Ahlawat, Being am experienced Software Engineer (Android) with 6 years of professional tech-savy experience and over 15 years of expertise working across Windows, Linux, macOS, and a wide range of devices, Technology has been my passion throughout and now I am building a FinTech-focused software company.
 
 I have worked with leading clients such as Physics Wallah, PVR Cinemas(Conduent) and FinTech giants like PhonePe and Stashfin.
 
@@ -278,7 +285,7 @@ def send_email(recipient, subject, body, attachment_path=None):
 def home():
     return "Email sender service is up and running!"
 
-@app.route('/send', methods=['GET'])
+@app.route('/sendJobApplicationEmails', methods=['GET'])
 def send_job_application_emails():
     """Route to send job application emails with a resume attachment."""
     emails_param = request.args.get('emails')
@@ -305,7 +312,17 @@ def send_job_application_emails():
         "failed": failed
     }), 200
 
-@app.route('/sendToInvestor', methods=['GET'])
+@app.route('/getFailedEmails',methods=['GET'])
+def getFailedEmails():
+    bounced_list = get_failed_emails()
+    if bounced_list:
+        # Join the list into a single comma-separated string
+        comma_separated_list = ",".join(bounced_list)
+        print("\n--- Comma-Separated List of Failed Emails ---")
+        return Response(comma_separated_list, mimetype='text/plain')
+    else:
+        return "Could not find or extract any failed email addresses.", 404
+@app.route('/sendInvestorPitchEmails', methods=['GET'])
 def send_investor_pitch_emails():
     emails_param = request.args.get('emails')
     if not emails_param:
@@ -330,6 +347,87 @@ def send_investor_pitch_emails():
         "success": [e for e in emails if e not in failed],
         "failed": failed
     }), 200
+
+def get_failed_emails():
+    """
+    Connects to Gmail, searches for bounced emails, extracts the failed
+    email addresses, and returns them as a list.
+    """
+    failed_emails = set() # Using a set to automatically handle duplicates
+
+    # Regex to find email addresses. It's flexible and works in most cases.
+    email_regex = re.compile(r'[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}')
+
+    imap = None # Initialize imap to None
+    try:
+        # Connect to the server over SSL
+        imap = imaplib.IMAP4_SSL(IMAP_SERVER)
+
+        # Login using your email and the App Password
+        imap.login(EMAIL_ADDRESS, EMAIL_PASSWORD)
+
+        # Select the mailbox you want to check (e.g., "INBOX")
+        imap.select("INBOX")
+
+        # Search for emails from mailer-daemon that indicate a hard bounce
+        # This query is more robust and checks the body for common failure text.
+        search_query = '(FROM "mailer-daemon@googlemail.com" BODY "Address not found")'
+        status, messages = imap.search(None, search_query)
+
+        if status != "OK":
+            print("No messages found!")
+            return []
+
+        # Get a list of email IDs
+        email_ids = messages[0].split()
+
+        print(f"Found {len(email_ids)} bounced emails. Processing...")
+
+        # Loop through each email
+        for email_id in email_ids:
+            # Fetch the email by ID
+            status, msg_data = imap.fetch(email_id, "(RFC822)")
+
+            for response_part in msg_data:
+                if isinstance(response_part, tuple):
+                    # Parse the email content
+                    msg = email.message_from_bytes(response_part[1])
+
+                    # Look for the plain text body
+                    if msg.is_multipart():
+                        for part in msg.walk():
+                            content_type = part.get_content_type()
+                            if content_type == "text/plain":
+                                try:
+                                    body = part.get_payload(decode=True).decode()
+                                    # Find the first email address in the body
+                                    match = email_regex.search(body)
+                                    if match:
+                                        failed_emails.add(match.group(0))
+                                        break # Move to the next email once found
+                                except:
+                                    continue
+                    else:
+                        # Not a multipart email, just get the payload
+                        try:
+                            body = msg.get_payload(decode=True).decode()
+                            match = email_regex.search(body)
+                            if match:
+                                failed_emails.add(match.group(0))
+                        except:
+                            continue
+
+        return list(failed_emails)
+
+    except Exception as e:
+        print(f"An error occurred: {e}")
+        return []
+    finally:
+        # Gracefully close the connection
+        if imap:
+            imap.close()
+            imap.logout()
+            print("Connection closed.")
 
 if __name__ == '__main__':
     app.run(debug=True)

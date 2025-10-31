@@ -35,7 +35,6 @@ Offer in hand: No, Just started looking for job.
 Expected CTC: 16 LPA
 Current company: BharatPe (payroll Sunday Labs)
 Updated resume: Attached
-Reason for change: Sunday Labs contract is getting over with BharatPe client.
 
 Thanks
 Madhur Ahlawat

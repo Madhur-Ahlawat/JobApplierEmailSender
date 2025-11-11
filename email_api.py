@@ -21,18 +21,18 @@ IMAP_SERVER = "imap.gmail.com"
 RESUME_PATH = "Madhur_Ahlawat_Android.docx"
 
 # --- Job Application Email Details ---
-EMAIL_SUBJECT_JOB_APP = "Android Developer with 5 yr exp (exBharatPe, Physics Wallah)"
+EMAIL_SUBJECT_JOB_APP = "Android Developer with 6 yr exp (exBharatPe, Physics Wallah)"
 EMAIL_BODY_JOB_APP = """\
-Total experience: 5.9 years
+Total experience: 6 years
 Relevant experience: Same
 Primary skills: Java/Kotlin, MVVM, Coroutines, Flows, Jetpack Compose, Dagger/Hilt, Android Security Analysis
 Notice period: Immediate Joiner
 Current location: Delhi/NCR
 Preferred location: Any
 Are you open to work from Office 5 days a week: Yes
-Current CTC: 14 LPA
+Current CTC: 16 LPA
 Offer in hand: No, Just started looking for job.
-Expected CTC: 16 LPA
+Expected CTC: 18 LPA
 Current company: BharatPe (payroll Sunday Labs)
 Updated resume: Attached
 

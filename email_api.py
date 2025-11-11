@@ -18,7 +18,7 @@ app = Flask(__name__)
 EMAIL_ADDRESS = "madhur.ahlawat17@gmail.com"
 EMAIL_PASSWORD = "vymz jmda rbuj dyho"
 IMAP_SERVER = "imap.gmail.com"
-RESUME_PATH = "Madhur_Ahlawat.docx"
+RESUME_PATH = "Madhur_Ahlawat_Android.docx"
 
 # --- Job Application Email Details ---
 EMAIL_SUBJECT_JOB_APP = "Android Developer with 5 yr exp (exBharatPe, Physics Wallah)"

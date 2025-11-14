@@ -361,17 +361,17 @@ def contactUs():
     
     # Validate required parameters
     if not name:
-        return jsonify({"error": "Missing 'name' query parameter"}), 400
+        return jsonify({"error": "Missing 'full_name' query parameter"}), 400
     if not country_code:
         return jsonify({"error": "Missing 'country_code' query parameter"}), 400
     if not phone_number:
         return jsonify({"error": "Missing 'phone_number' query parameter"}), 400
     if not email:
-        return jsonify({"error": "Missing 'email' query parameter"}), 400
+        return jsonify({"error": "Missing 'email_address' query parameter"}), 400
     if not message:
-        return jsonify({"error": "Missing 'message' query parameter"}), 400
+        return jsonify({"error": "Missing 'contactus_message' query parameter"}), 400
     
-    # Format email body
+    # Format email body for recipient (madhur.aws17@gmail.com)
     recipient = RECIPIENT_EMAIL
     subject = f"{name} contacted you!"
     body = f"""Contact Form Submission
@@ -385,23 +385,62 @@ Message:
 {message}
 """
     
-    # Send email
-    success = send_email(
+    # Send email to recipient (madhur.aws17@gmail.com)
+    success_recipient = send_email(
         recipient=recipient,
         subject=subject,
         body=body,
         attachment_path=None
     )
     
-    if success:
+    # Format confirmation email body for submitter
+    confirmation_subject = "Thank you for contacting us!"
+    confirmation_body = f"""Dear {name},
+
+Thank you for reaching out to us. We have received your message and will get back to you soon.
+
+Here's a copy of your submission:
+
+Name: {name}
+Country Code: {country_code}
+Phone Number: {phone_number}
+Email: {email}
+
+Message:
+{message}
+
+Best regards,
+Team
+"""
+    
+    # Send confirmation email to submitter
+    success_submitter = send_email(
+        recipient=email,
+        subject=confirmation_subject,
+        body=confirmation_body,
+        attachment_path=None
+    )
+    
+    # Return response based on both email results
+    if success_recipient and success_submitter:
         return jsonify({
             "status": "success",
-            "message": f"Email sent successfully to {recipient}"
+            "message": f"Emails sent successfully to {recipient} and {email}"
         }), 200
+    elif success_recipient:
+        return jsonify({
+            "status": "partial_success",
+            "message": f"Email sent to {recipient}, but failed to send confirmation to {email}"
+        }), 207
+    elif success_submitter:
+        return jsonify({
+            "status": "partial_success",
+            "message": f"Confirmation sent to {email}, but failed to send email to {recipient}"
+        }), 207
     else:
         return jsonify({
             "status": "error",
-            "message": "Failed to send email"
+            "message": "Failed to send emails"
         }), 500
 
 def get_failed_emails():

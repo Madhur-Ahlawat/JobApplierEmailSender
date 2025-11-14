@@ -410,7 +410,7 @@ Message:
 {message}
 
 Best regards,
-Team
+Rythm Audio Team
 """
     
     # Send confirmation email to submitter

@@ -17,10 +17,10 @@ app = Flask(__name__)
 
 RECIPIENT_EMAIL = os.getenv("recipient_email")
 SENDER_EMAIL = os.getenv("sender_email")
+GMAIL_APP_PASSWORD = os.getenv("gmail_app_password")
 
 IMAP_SERVER = "imap.gmail.com"
 RESUME_PATH = "Madhur_Ahlawat_Android.docx"
-GMAIL_APP_PASSWORD = os.getenv("gmail_app_password")
 
 # --- Job Application Email Details ---
 EMAIL_SUBJECT_JOB_APP = "Android Developer with 6 yr exp (exBharatPe, Physics Wallah)"
@@ -525,4 +525,14 @@ def get_failed_emails():
             print("Connection closed.")
 
 if __name__ == '__main__':
+    # Print environment variables
+    print("\n" + "="*80)
+    print("ENVIRONMENT VARIABLES:")
+    print("="*80)
+    print(f"recipient_email = {RECIPIENT_EMAIL}")
+    print(f"sender_email = {SENDER_EMAIL}")
+    masked_password = '*' * 20 if GMAIL_APP_PASSWORD else 'None'
+    print(f"gmail_app_password = {masked_password}")
+    print("="*80)
+    print("\nStarting Flask server...\n")
     app.run(debug=True)

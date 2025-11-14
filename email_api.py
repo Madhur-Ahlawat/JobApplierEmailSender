@@ -1,7 +1,7 @@
 import email
 import imaplib
 import re
-
+import os
 from flask import Flask, request, jsonify, Response
 import smtplib
 from email.message import EmailMessage
@@ -12,13 +12,15 @@ app = Flask(__name__)
 # --- Email and App Configuration (All variables at the top) ---
 # It's highly recommended to use environment variables for sensitive data
 # Example: os.environ.get('EMAIL_ADDRESS')
-# export EMAIL_ADDRESS='your_email@gmail.com'
+# export SENDER_EMAIL='your_email@gmail.com'
 # export EMAIL_PASSWORD='your_app_password'
 
-EMAIL_ADDRESS = "madhur.ahlawat17@gmail.com"
-EMAIL_PASSWORD = "vymz jmda rbuj dyho"
+RECIPIENT_EMAIL = os.getenv("recipient_email")
+SENDER_EMAIL = os.getenv("sender_email")
+
 IMAP_SERVER = "imap.gmail.com"
 RESUME_PATH = "Madhur_Ahlawat_Android.docx"
+GMAIL_APP_PASSWORD = os.getenv("gmail_app_password")
 
 # --- Job Application Email Details ---
 EMAIL_SUBJECT_JOB_APP = "Android Developer with 6 yr exp (exBharatPe, Physics Wallah)"
@@ -252,7 +254,7 @@ Phone & WhatsApp: +91-9958417372
 def send_email(recipient, subject, body, attachment_path=None):
     try:
         msg = EmailMessage()
-        msg['From'] = EMAIL_ADDRESS
+        msg['From'] = SENDER_EMAIL
         msg['To'] = recipient
         msg['Subject'] = subject
         msg.set_content(body)
@@ -269,7 +271,7 @@ def send_email(recipient, subject, body, attachment_path=None):
             print(f"❌ Failed to attach file!")
 
         with smtplib.SMTP_SSL('smtp.gmail.com', 465) as smtp:
-            smtp.login(EMAIL_ADDRESS, EMAIL_PASSWORD)
+            smtp.login(SENDER_EMAIL, GMAIL_APP_PASSWORD)
             smtp.send_message(msg)
             print(f"✅ Email sent to {recipient} with subject: '{subject}'")
         return True
@@ -347,6 +349,61 @@ def send_investor_pitch_emails():
         "failed": failed
     }), 200
 
+@app.route('/contactUs', methods=['GET'])
+def contactUs():
+    """Route to send a contact form email to madhur.aws17@gmail.com with query parameters."""
+    # Get query parameters
+    name = request.args.get('full_name')
+    country_code = request.args.get('country_code')
+    phone_number = request.args.get('phone_number')
+    email = request.args.get('email_address')
+    message = request.args.get('contactus_message')
+    
+    # Validate required parameters
+    if not name:
+        return jsonify({"error": "Missing 'name' query parameter"}), 400
+    if not country_code:
+        return jsonify({"error": "Missing 'country_code' query parameter"}), 400
+    if not phone_number:
+        return jsonify({"error": "Missing 'phone_number' query parameter"}), 400
+    if not email:
+        return jsonify({"error": "Missing 'email' query parameter"}), 400
+    if not message:
+        return jsonify({"error": "Missing 'message' query parameter"}), 400
+    
+    # Format email body
+    recipient = RECIPIENT_EMAIL
+    subject = f"{name} contacted you!"
+    body = f"""Contact Form Submission
+
+Name: {name}
+Country Code: {country_code}
+Phone Number: {phone_number}
+Email: {email}
+
+Message:
+{message}
+"""
+    
+    # Send email
+    success = send_email(
+        recipient=recipient,
+        subject=subject,
+        body=body,
+        attachment_path=None
+    )
+    
+    if success:
+        return jsonify({
+            "status": "success",
+            "message": f"Email sent successfully to {recipient}"
+        }), 200
+    else:
+        return jsonify({
+            "status": "error",
+            "message": "Failed to send email"
+        }), 500
+
 def get_failed_emails():
     """
     Connects to Gmail, searches for bounced emails, extracts the failed
@@ -363,7 +420,7 @@ def get_failed_emails():
         imap = imaplib.IMAP4_SSL(IMAP_SERVER)
 
         # Login using your email and the App Password
-        imap.login(EMAIL_ADDRESS, EMAIL_PASSWORD)
+        imap.login(RECIPIENT_EMAIL, GMAIL_APP_PASSWORD)
 
         # Select the mailbox you want to check (e.g., "INBOX")
         imap.select("INBOX")

@@ -286,6 +286,14 @@ def send_email(recipient, subject, body, attachment_path=None):
 def home():
     return "Email sender service is up and running!"
 
+@app.route('/isOnline', methods=['GET'])
+def is_online():
+    return jsonify({
+        "status": "Completed",
+        "success": "Server is running!",
+        "failed": False
+    }), 200
+
 @app.route('/sendJobApplicationEmails', methods=['GET'])
 def send_job_application_emails():
     """Route to send job application emails with a resume attachment."""

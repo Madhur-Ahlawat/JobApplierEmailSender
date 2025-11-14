@@ -268,16 +268,16 @@ def send_email(recipient, subject, body, attachment_path=None):
                     filename=os.path.basename(attachment_path)
                 )
         else:
-            print(f"❌ Failed to attach file!")
+            print(f" Failed to attach file!")
 
         with smtplib.SMTP_SSL('smtp.gmail.com', 465) as smtp:
             smtp.login(SENDER_EMAIL, GMAIL_APP_PASSWORD)
             smtp.send_message(msg)
-            print(f"✅ Email sent to {recipient} with subject: '{subject}'")
+            print(f" Email sent to {recipient} with subject: '{subject}'")
         return True
 
     except Exception as e:
-        print(f"❌ Failed to send email to {recipient}: {e}")
+        print(f" Failed to send email to {recipient}: {e}")
         return False
 
 # --- Flask Routes ---
@@ -397,7 +397,7 @@ Message:
     confirmation_subject = "Thank you for contacting us!"
     confirmation_body = f"""Dear {name},
 
-Thank you for reaching out to us. We have received your message and will get back to you soon.
+Thank you for reaching out to us. We have received your message and will get back to you soon!
 
 Here's a copy of your submission:
 

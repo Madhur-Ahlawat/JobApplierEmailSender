@@ -35,7 +35,7 @@ Are you open to work from Office 5 days a week: Yes
 Current CTC: 16 LPA
 Offer in hand: No, Just started looking for job.
 Expected CTC: 18 LPA
-Current company: BharatPe (payroll Sunday Labs)
+Current company: BharatPe (payroll of EQX Analytics Pvt. Ltd.)
 Updated resume: Attached
 
 Thanks

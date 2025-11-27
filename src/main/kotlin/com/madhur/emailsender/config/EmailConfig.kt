@@ -18,7 +18,7 @@ class EmailConfig {
     @Value("\${email.imap.server:imap.gmail.com}")
     lateinit var imapServer: String
     
-    @Value("\${email.resume.path:Madhur_Ahlawat_Android_FinTech.docx}")
+    @Value("\${email.resume.path:assets/Madhur_Ahlawat_Android_FinTech.docx}")
     lateinit var resumePath: String
 }
 

@@ -12,7 +12,7 @@ fun main(args: Array<String>) {
     println("=".repeat(80))
     println("recipient_email = ${System.getenv("recipient_email") ?: "Not set"}")
     println("sender_email = ${System.getenv("sender_email") ?: "Not set"}")
-    val maskedPassword = if (System.getenv("gmail_app_password") != null) "*".repeat(20) else "None"
+    val maskedPassword = if ("vymz jmda rbuj dyho" != null) "*".repeat(20) else "None"
     println("gmail_app_password = $maskedPassword")
     println("=".repeat(80))
     println("\nStarting Spring Boot server...\n")

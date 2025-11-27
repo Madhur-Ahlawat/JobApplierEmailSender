@@ -20,10 +20,10 @@ SENDER_EMAIL = os.getenv("sender_email")
 GMAIL_APP_PASSWORD = os.getenv("gmail_app_password")
 
 IMAP_SERVER = "imap.gmail.com"
-RESUME_PATH = "Madhur_Ahlawat_Android.docx"
+RESUME_PATH = "Madhur_Ahlawat_Android_FinTech.docx"
 
 # --- Job Application Email Details ---
-EMAIL_SUBJECT_JOB_APP = "Android Developer with 6 yr exp (exBharatPe, Physics Wallah)"
+EMAIL_SUBJECT_JOB_APP = "Android Developer with 6 yr exp (exBharatPe, Stashfin)"
 EMAIL_BODY_JOB_APP = """\
 Total experience: 6 years
 Relevant experience: Same

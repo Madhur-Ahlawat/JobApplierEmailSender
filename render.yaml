@@ -1,6 +1,9 @@
 services:
   - type: web
     name: jobapplieremailsender
-    env: python
-    buildCommand: ""
-    startCommand: gunicorn email_api:app
+    env: java
+    buildCommand: ./gradlew bootJar
+    startCommand: java -jar build/libs/JobApplierEmailSender-1.0.0.jar
+    envVars:
+      - key: JAVA_TOOL_OPTIONS
+        value: -Xmx256m
